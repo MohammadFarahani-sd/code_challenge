@@ -26,7 +26,7 @@ public class CreateCustomerRequestTestBuilder : ReflectionBuilder<CreateCustomer
         {
             BankAccountNumber = BankAccountNumber,
             DateOfBirth = DateOfBirth,
-            Email =Email.ToString(),
+            Email = Email.ToString(),
             Firstname = Firstname,
             Lastname = Lastname,
         };

@@ -11,7 +11,7 @@ public static class CustomerProvider
         var builder = new CreateCustomerRequestTestBuilder()
             .With(x => x.Firstname, CustomerConstants.Firstname)
             .With(x => x.Lastname, CustomerConstants.Lastname)
-            .With(x => x.Email, CustomerConstants.Email)
+            .With(x => x.Email, CustomerConstants.Email.ToString())
             .With(x => x.DateOfBirth, CustomerConstants.DateOfBirth)
             .With(x => x.BankAccountNumber, CustomerConstants.BackAccountNumber);
 

@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Mc2.CrudTest.IntegrationTest.BaseTests;
 
+[AutoRollback]
 public class BaseIntegrationTest
 {
     protected readonly WebApplicationFactory<Program> Application;
