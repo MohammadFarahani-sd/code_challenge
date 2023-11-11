@@ -10,9 +10,5 @@
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="7.0.2" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Client\Mc2.CrudTest.Presentation.Client.csproj" />
-  </ItemGroup>
-
 
 </Project>
