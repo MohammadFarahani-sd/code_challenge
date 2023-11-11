@@ -1,4 +1,4 @@
-﻿namespace Framework.Web.Api.Models;
+﻿namespace Common.Models;
 
 public class CollectionResponse<T>
 {

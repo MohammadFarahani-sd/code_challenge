@@ -5,24 +5,23 @@ using Mc2.CrudTest.Presentation.Server.Controllers.Models;
 
 namespace Mc2.CrudTest.IntegrationTest.Fixtures.TestBuilders.Customers;
 
-public class CreateCustomerRequestTestBuilder : ReflectionBuilder<CreateCustomerRequest, CreateCustomerRequestTestBuilder>
+public class UpdateCustomerRequestTestBuilder : ReflectionBuilder<UpdateCustomerRequest, UpdateCustomerRequestTestBuilder>
 {
-    private readonly CreateCustomerRequestTestBuilder _builderInstance;
+    private readonly UpdateCustomerRequestTestBuilder _builderInstance;
 
-    public Guid Id { get; set; } = CustomerConstants.Id;
     public string Firstname { get; set; } = CustomerConstants.Firstname;
     public string Lastname { get; set; } = CustomerConstants.Lastname;
     public DateOnly DateOfBirth { get; set; } = CustomerConstants.DateOfBirth;
     public MailAddress Email { get; set; } = CustomerConstants.Email;
     public string? BankAccountNumber { get; set; } = CustomerConstants.BackAccountNumber;
-    public CreateCustomerRequestTestBuilder()
+    public UpdateCustomerRequestTestBuilder()
     {
         _builderInstance = this;
     }
 
-    public override CreateCustomerRequest Build()
+    public override UpdateCustomerRequest Build()
     {
-        var customer = new CreateCustomerRequest
+        var customer = new UpdateCustomerRequest
         {
             BankAccountNumber = BankAccountNumber,
             DateOfBirth = DateOfBirth,
@@ -33,4 +32,5 @@ public class CreateCustomerRequestTestBuilder : ReflectionBuilder<CreateCustomer
 
         return customer;
     }
+
 }

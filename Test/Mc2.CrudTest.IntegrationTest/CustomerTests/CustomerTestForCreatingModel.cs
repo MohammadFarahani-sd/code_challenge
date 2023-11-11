@@ -1,4 +1,5 @@
 ﻿using System.Net.Http.Json;
+using Common.Models;
 using Mc2.CrudTest.IntegrationTest.BaseTests;
 using Mc2.CrudTest.IntegrationTest.Fixtures.Constants;
 using Mc2.CrudTest.IntegrationTest.Fixtures.Providers.CustomerProvider;
@@ -11,75 +12,41 @@ namespace Mc2.CrudTest.IntegrationTest.CustomerTests;
 public class CustomerTestForCreatingModel : BaseIntegrationTest
 {
     [Fact]
-    public async Task ordering_test_in_create_and_accept()
+    public async Task happy_scenario_for_creating_customer()
     {
         var customerRequest = CustomerProvider.ProvideSomeCustomerTestBuilder();
-
 
         var createCustomer = await ClientRequest.PostAsJsonAsync(RouteConstantProvider.CreateCustomer, customerRequest);
         
         var responseOfCreate = await createCustomer.Content.ReadFromJsonAsync<Response<Guid>>();
-       
-        var orders = await OrderProvider.GetZoneOrders(ZoneClient);
-        
-        dateProvider.SetUtcNow(changeableDateTime.AddMinutes(5));
-
-        AppClient.DefaultRequestHeaders.Add("x-requestid", Guid.NewGuid().ToString());
-        
-        await RequestToAcceptOrder(AppClient, responseOfCreate.Data);
-        
-        dateProvider.SetUtcNow(changeableDateTime.AddMinutes(15));
-
-        await RequestToPickUpOrder(AppClient, responseOfCreate.Data);
-
-        dateProvider.SetUtcNow(changeableDateTime.AddMinutes(25));
-
-        await RequestToDeliverOrder(AppClient, responseOfCreate.Data);
-
-        await ZoneClient.DeleteAsync($"{RouteConstantProvider.ZoneOrderRemove}/{responseOfCreate.Data}");
-
     }
 
-    private static async Task RequestToAcceptOrder(HttpClient client, Guid orderId)
+
+    [Fact]
+    public async Task not_valid_data_for_create_user_when_first_name_is_not_valid()
     {
-        var acceptOrder = new
-        {
-            Location = new GeoLocation(20, 30), 
-        };
+        var customerRequest = CustomerProvider.ProvideSomeCustomerTestBuilder();
+        customerRequest.Firstname = "";
+        var createCustomer = await ClientRequest.PostAsJsonAsync(RouteConstantProvider.CreateCustomer, customerRequest);
 
-        var rejectByRider =
-            await client.PutAsJsonAsync($"{RouteConstantProvider.AcceptOrderByRider}/{orderId}", acceptOrder);
+        var responseOfCreate = await createCustomer.Content.ReadFromJsonAsync<Response<ResponseMeta>>();
 
-        rejectByRider.EnsureSuccessStatusCode();
-
+        Assert.NotEmpty(responseOfCreate.Meta.Message);
     }
 
-    private static async Task RequestToPickUpOrder(HttpClient client, Guid orderId)
+
+
+    [Fact]
+    public async Task not_valid_data_for_create_user_when_last_name_is_not_valid()
     {
-        var acceptOrder = new
-        {
-            Location = new GeoLocation(20, 30),
-        };
+        var customerRequest = CustomerProvider.ProvideSomeCustomerTestBuilder();
+        customerRequest.Lastname = "";
+        var createCustomer = await ClientRequest.PostAsJsonAsync(RouteConstantProvider.CreateCustomer, customerRequest);
 
-        var rejectByRider =
-            await client.PutAsJsonAsync($"{RouteConstantProvider.PickUpOrderByRider}/{orderId}", acceptOrder);
+        var responseOfCreate = await createCustomer.Content.ReadFromJsonAsync<Response<ResponseMeta>>();
 
-        rejectByRider.EnsureSuccessStatusCode();
+        Assert.NotEmpty(responseOfCreate.Meta.Message);
 
     }
 
-
-    private static async Task RequestToDeliverOrder(HttpClient client, Guid orderId)
-    {
-        var acceptOrder = new
-        {
-            Location = new GeoLocation(20, 30),
-        };
-
-        var rejectByRider =
-            await client.PutAsJsonAsync($"{RouteConstantProvider.DeliverOrderByRider}/{orderId}", acceptOrder);
-
-        rejectByRider.EnsureSuccessStatusCode();
-
-    }
 }
