@@ -28,9 +28,5 @@ public static class RandomStringHelper
         const string chars = RandomStringHelperConstants.AlphaCharacters;
         return new string(Enumerable.Repeat(chars, length).Select(s => s[Random.Next(s.Length)]).ToArray());
     }
-
-    public static string GetDummyRiderEmail()
-    {
-        return $"{GetRandomString(10).Trim().ToLower()}{RandomStringHelperConstants.NizekEmailDomainSuffix}";
-    }
+    
 }
