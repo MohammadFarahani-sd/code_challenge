@@ -65,7 +65,7 @@ public class Customer : Entity, IAggregateRoot
 
     public PhoneNumber GetPhoneNumber() => Phone;
 
-    public void Update(string firstname, string lastname, DateOnly dateOfBirth, ulong phoneNumber, string email, string bankAccountNumber)
+    public void Update(string firstname, string lastname, DateOnly dateOfBirth, ulong phoneNumber, string email, string? bankAccountNumber)
     {
         if (string.IsNullOrWhiteSpace(firstname))
             throw new DomainException("invalid firstname");

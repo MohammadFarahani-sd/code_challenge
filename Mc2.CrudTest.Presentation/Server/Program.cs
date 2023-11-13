@@ -1,4 +1,7 @@
+using Mc2.CrudTest.Application.Command.Customers;
+using Mc2.CrudTest.Query.Handlers.Customers;
 using Microsoft.AspNetCore.ResponseCompression;
+using MediatR;
 
 namespace Mc2.CrudTest.Presentation
 {
@@ -12,6 +15,12 @@ namespace Mc2.CrudTest.Presentation
 
             builder.Services.AddControllersWithViews();
             builder.Services.AddRazorPages();
+
+
+            builder.Services.AddMediatR(typeof(CreateCustomerCommandHandler).Assembly);
+            builder.Services.AddMediatR(typeof(CreateCustomerCommandHandler).Assembly);
+            builder.Services.AddMediatR(typeof(GetCustomerQueryHandler).Assembly);
+
 
             var app = builder.Build();
 

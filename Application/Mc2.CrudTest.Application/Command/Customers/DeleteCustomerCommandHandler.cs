@@ -5,36 +5,28 @@ using MediatR;
 
 namespace Mc2.CrudTest.Application.Command.Customers;
 
-public class CreateCustomerCommandHandler : IRequestHandler<CreateCustomerCommand, Guid>
+public class DeleteCustomerCommandHandler : IRequestHandler<DeleteCustomerCommand, Guid>
 {
     private readonly ICustomerRepository _repository;
 
-    public CreateCustomerCommandHandler(ICustomerRepository repository)
+    public DeleteCustomerCommandHandler(ICustomerRepository repository)
     {
         _repository = repository;
     }
 
-    public async Task<Guid> Handle(CreateCustomerCommand request, CancellationToken cancellationToken)
+    public async Task<Guid> Handle(DeleteCustomerCommand request, CancellationToken cancellationToken)
     {
-        var isDuplicatedEmail=
-            await _repository.IsUniqueEmail(request.Email);
-        
-        if (!isDuplicatedEmail)
-            throw new DomainException("customer with this email is exist");
 
-        var isDuplicatedData =
-            await _repository.IsUniqueValidationPassed(request.Firstname, request.Lastname, request.DateOfBirth);
+        var customer = await _repository.GetCustomerAsync(request.Id, cancellationToken);
 
-        if (!isDuplicatedData)
-            throw new DomainException("customer with this data is duplicated");
+        if (customer == null)
+            throw new DomainException("Item Not Found");
 
-        var entity = new Customer(request.Firstname, request.Lastname, request.DateOfBirth, request.PhoneNumber,
-            request.Email, request.BankAccountNumber);
 
-        _repository.Add(entity);
+        _repository.Delete(customer);
 
         await _repository.UnitOfWork.SaveEntitiesAsync(cancellationToken);
 
-        return entity.Id;
+        return request.Id;
     }
 }

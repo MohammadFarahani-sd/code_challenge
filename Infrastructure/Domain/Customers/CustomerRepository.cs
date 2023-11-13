@@ -36,4 +36,17 @@ public class CustomerRepository : RepositoryBase<Customer>, ICustomerRepository
     {
         return await DbContext.Customers.AnyAsync(q => q.Email.ToString() == email);
     }
+
+
+    public async Task<bool> IsUniqueEmail(Guid id, string email)
+    {
+        return await DbContext.Customers.AnyAsync(q => q.Id != id && q.Email.ToString() == email);
+    }
+
+
+    public async Task<bool> IsUniqueValidationPassed(Guid id,string firstname, string lastname, DateOnly dateOfBirth)
+    {
+        return await DbContext.Customers.AnyAsync(q => q.Id!= id&& 
+            q.FirstName == firstname && q.LastName == lastname && q.DateOfBirth == dateOfBirth);
+    }
 }
