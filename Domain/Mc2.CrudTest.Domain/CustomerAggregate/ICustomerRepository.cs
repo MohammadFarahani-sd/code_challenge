@@ -11,4 +11,7 @@ public interface ICustomerRepository : IRepository<Customer>
     Task<Customer?> GetCustomerAsync(Guid id, CancellationToken cancellationToken);
 
     Task<bool> IsUniqueValidationPassed(string firstname, string lastname , DateOnly dateOfBirth);
+
+
+    Task<bool> IsUniqueEmail(string email);
 }

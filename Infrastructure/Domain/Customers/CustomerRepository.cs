@@ -31,4 +31,9 @@ public class CustomerRepository : RepositoryBase<Customer>, ICustomerRepository
         return await DbContext.Customers.AnyAsync(q =>
             q.FirstName == firstname && q.LastName == lastname && q.DateOfBirth == dateOfBirth);
     }
+
+    public async Task<bool> IsUniqueEmail(string email)
+    {
+        return await DbContext.Customers.AnyAsync(q => q.Email.ToString() == email);
+    }
 }
