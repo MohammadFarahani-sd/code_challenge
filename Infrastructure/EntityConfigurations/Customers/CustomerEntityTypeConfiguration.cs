@@ -15,7 +15,10 @@ namespace Mc2.CrudTest.Infrastructure.EntityConfigurations.Customers
 
             configuration.HasKey(o => o.Id);
 
-            configuration.HasKey(o => new { o.DateOfBirth, o.FirstName, o.LastName });
+            configuration.HasIndex(o => new { o.DateOfBirth, o.FirstName, o.LastName }).IsUnique();
+
+            configuration.HasIndex(p => p.Email).IsUnique();
+
 
             configuration
                 .OwnsOne(o => o.Phone, a =>
