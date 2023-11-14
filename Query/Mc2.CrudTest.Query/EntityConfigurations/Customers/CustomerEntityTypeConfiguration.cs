@@ -8,7 +8,7 @@ public class CustomerEntityTypeConfiguration : EntityTypeConfiguration<Customer>
 {
     public override void ConfigureDerived(EntityTypeBuilder<Customer> configuration)
     {
-        configuration.ToTable("Customers", "Mc2CodeChallenge");
+        configuration.ToTable("Customer", "Mc2CodeChallenge");
 
         configuration.Property(o => o.Id).HasColumnName("Id");
 

@@ -1,11 +1,12 @@
-﻿using MediatR;
+﻿using System.Net.Mail;
+using MediatR;
 
 namespace Mc2.CrudTest.Application.Contract.Customers.Command;
 
 [Serializable]
 public class UpdateCustomerCommand : IRequest<Guid>
 {
-    public UpdateCustomerCommand(Guid id, string firstname, string lastname, DateOnly dateOfBirth, ulong phoneNumber, string email, string? bankAccountNumber)
+    public UpdateCustomerCommand(Guid id, string firstname, string lastname, DateOnly dateOfBirth, ulong phoneNumber, MailAddress email, string? bankAccountNumber)
     {
         Id = id;
         Firstname = firstname;
@@ -21,6 +22,6 @@ public class UpdateCustomerCommand : IRequest<Guid>
     public string Lastname { get; set; }
     public DateOnly DateOfBirth { get; set; }
     public ulong PhoneNumber { get; set; }
-    public string Email { get; set; }
+    public MailAddress Email { get; set; }
     public string? BankAccountNumber { get; set; }
 }

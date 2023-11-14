@@ -1,4 +1,5 @@
-﻿using Mc2.CrudTest.Domain.SeedWork;
+﻿using System.Net.Mail;
+using Mc2.CrudTest.Domain.SeedWork;
 
 namespace Mc2.CrudTest.Domain.CustomerAggregate;
 
@@ -12,9 +13,9 @@ public interface ICustomerRepository : IRepository<Customer>
 
     Task<bool> IsUniqueValidationPassed(string firstname, string lastname, DateOnly dateOfBirth);
 
-    Task<bool> IsUniqueValidationPassed(Guid id, string firstname, string lastname, DateOnly dateOfBirth)
+    Task<bool> IsUniqueValidationPassed(Guid id, string firstname, string lastname, DateOnly dateOfBirth);
 
-    Task<bool> IsUniqueEmail(string email);
+    Task<bool> IsUniqueEmail(MailAddress email);
 
-    Task<bool> IsUniqueEmail(Guid id, string email);
+    Task<bool> IsUniqueEmail(Guid id, MailAddress email);
 }

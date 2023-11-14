@@ -7,20 +7,22 @@ using Mc2.CrudTest.Domain.SeedWork;
 
 namespace Mc2.CrudTest.Domain.CustomerAggregate;
 
-[Table("Customers", Schema = "Mc2CodeChallenge")]
+[Table("Customer", Schema = "Mc2CodeChallenge")]
 public class Customer : Entity, IAggregateRoot
 {
     public string FirstName { get; private set; }
 
     public string LastName { get; private set; }
 
+    [Column("DateOfBirth", TypeName = "date")]
     public DateOnly DateOfBirth { get; private set; }
 
     public PhoneNumber Phone { get; private set; } = null!;
 
 
-    [EmailAddress] 
-    public MailAddress Email { get; private set; }
+    [EmailAddress]
+    [Column("Email", TypeName = "varchar(100)")]
+    public string Email { get; private set; }
 
     /// <summary>
     /// The IBAN consist of up to 34 alphanumeric characters  comprising a country code.
@@ -31,7 +33,7 @@ public class Customer : Entity, IAggregateRoot
     {
     }
 
-    public Customer(string firstname, string lastname, DateOnly dateOfBirth, ulong phoneNumber, string email, string? bankAccountNumber)
+    public Customer(string firstname, string lastname, DateOnly dateOfBirth, ulong phoneNumber, MailAddress email, string? bankAccountNumber)
     {
         if (string.IsNullOrWhiteSpace(firstname))
             throw new DomainException("invalid firstname");
@@ -39,10 +41,10 @@ public class Customer : Entity, IAggregateRoot
         if (string.IsNullOrWhiteSpace(lastname))
             throw new DomainException("invalid lastname");
 
-        if (string.IsNullOrWhiteSpace(email))
+        if (string.IsNullOrWhiteSpace(email.ToString()))
             throw new DomainException("invalid email");
 
-        if (!MailAddress.TryCreate(email, out var emailItem))
+        if (!MailAddress.TryCreate(email.ToString(), out var emailItem))
             throw new DomainException("invalid email");
 
 
@@ -51,7 +53,7 @@ public class Customer : Entity, IAggregateRoot
         this.LastName = lastname;
         this.DateOfBirth = dateOfBirth;
         this.Phone = new PhoneNumber(phoneNumber);
-        this.Email = new MailAddress(email);
+        this.Email = email.ToString();
         this.BankAccountNumber = bankAccountNumber;
     }
 
@@ -59,13 +61,13 @@ public class Customer : Entity, IAggregateRoot
 
     public string GetLastName() => LastName;
 
-    public MailAddress GetEmail() => Email;
+    public MailAddress GetEmail() =>new MailAddress(Email);
 
     public DateOnly GetDateOfBirth() => DateOfBirth;
 
     public PhoneNumber GetPhoneNumber() => Phone;
 
-    public void Update(string firstname, string lastname, DateOnly dateOfBirth, ulong phoneNumber, string email, string? bankAccountNumber)
+    public void Update(string firstname, string lastname, DateOnly dateOfBirth, ulong phoneNumber, MailAddress email, string? bankAccountNumber)
     {
         if (string.IsNullOrWhiteSpace(firstname))
             throw new DomainException("invalid firstname");
@@ -73,16 +75,16 @@ public class Customer : Entity, IAggregateRoot
         if (string.IsNullOrWhiteSpace(lastname))
             throw new DomainException("invalid lastname");
 
-        if (string.IsNullOrWhiteSpace(email))
+        if (string.IsNullOrWhiteSpace(email.ToString()))
             throw new DomainException("invalid email");
 
 
-        if (!MailAddress.TryCreate(email, out var emailItem))
+        if (!MailAddress.TryCreate(email.ToString(), out var emailItem))
             throw new DomainException("invalid email");
         this.FirstName = firstname;
         this.LastName = lastname;
         this.DateOfBirth = dateOfBirth;
-        this.Email = new MailAddress(email);
+        this.Email = email.ToString();
         this.BankAccountNumber = bankAccountNumber;
 
         this.Phone.Update(phoneNumber);

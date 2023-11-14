@@ -1,4 +1,5 @@
-﻿using Mc2.CrudTest.Domain.CustomerAggregate;
+﻿using System.Net.Mail;
+using Mc2.CrudTest.Domain.CustomerAggregate;
 using Mc2.CrudTest.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 
@@ -29,24 +30,24 @@ public class CustomerRepository : RepositoryBase<Customer>, ICustomerRepository
     public async Task<bool> IsUniqueValidationPassed(string firstname, string lastname, DateOnly dateOfBirth)
     {
         return await DbContext.Customers.AnyAsync(q =>
-            q.FirstName == firstname && q.LastName == lastname && q.DateOfBirth == dateOfBirth);
+            q.FirstName == firstname && q.LastName == lastname && q.GetDateOfBirth() == dateOfBirth);
     }
 
-    public async Task<bool> IsUniqueEmail(string email)
+    public async Task<bool> IsUniqueEmail(MailAddress email)
     {
-        return await DbContext.Customers.AnyAsync(q => q.Email.ToString() == email);
-    }
-
-
-    public async Task<bool> IsUniqueEmail(Guid id, string email)
-    {
-        return await DbContext.Customers.AnyAsync(q => q.Id != id && q.Email.ToString() == email);
+        return await DbContext.Customers.AnyAsync(q => q.Email == email.ToString());
     }
 
 
-    public async Task<bool> IsUniqueValidationPassed(Guid id,string firstname, string lastname, DateOnly dateOfBirth)
+    public async Task<bool> IsUniqueEmail(Guid id, MailAddress email)
     {
-        return await DbContext.Customers.AnyAsync(q => q.Id!= id&& 
-            q.FirstName == firstname && q.LastName == lastname && q.DateOfBirth == dateOfBirth);
+        return await DbContext.Customers.AnyAsync(q => q.Id != id && q.Email == email.ToString());
+    }
+
+
+    public async Task<bool> IsUniqueValidationPassed(Guid id, string firstname, string lastname, DateOnly dateOfBirth)
+    {
+        return await DbContext.Customers.AnyAsync(q => q.Id != id &&
+            q.FirstName == firstname && q.LastName == lastname && q.GetDateOfBirth() == dateOfBirth);
     }
 }

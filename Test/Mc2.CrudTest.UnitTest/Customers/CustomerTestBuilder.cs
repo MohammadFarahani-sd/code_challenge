@@ -1,4 +1,5 @@
-﻿using Mc2.CrudTest.Domain.CustomerAggregate;
+﻿using System.Net.Mail;
+using Mc2.CrudTest.Domain.CustomerAggregate;
 
 namespace Mc2.CrudTest.UnitTest.Customers;
 
@@ -12,7 +13,7 @@ public class CustomerTestBuilder
 
     private ulong phoneNumber;
 
-    private string email;
+    private MailAddress email;
 
     private string? bankAccountNumber;
 
@@ -20,14 +21,14 @@ public class CustomerTestBuilder
     public CustomerTestBuilder()
     {
         var currentId = Guid.NewGuid();
-        firstname=Guid.NewGuid().ToString();
-        lastname=Guid.NewGuid().ToString();
-        dateOfBirth=DateOnly.FromDateTime(DateTime.Today);
-        phoneNumber =ulong.Parse("00989128986248");
-        email = $"{Guid.NewGuid().ToString()}@example.com";
+        firstname = Guid.NewGuid().ToString();
+        lastname = Guid.NewGuid().ToString();
+        dateOfBirth = DateOnly.FromDateTime(DateTime.Today);
+        phoneNumber = ulong.Parse("00989128986248");
+        email = new MailAddress($"{Guid.NewGuid().ToString()}@example.com");
         bankAccountNumber = "123456789";
         WithId(currentId);
-        
+
     }
 
     public Guid Id { get; set; }
@@ -42,7 +43,7 @@ public class CustomerTestBuilder
 
     internal CustomerTestBuilder WithFirstname(string firstname)
     {
-      this.firstname = firstname;
+        this.firstname = firstname;
 
         return this;
     }
@@ -56,7 +57,7 @@ public class CustomerTestBuilder
     }
 
 
-    internal CustomerTestBuilder WithEmail(string email)
+    internal CustomerTestBuilder WithEmail(MailAddress email)
     {
         this.email = email;
 
@@ -66,8 +67,8 @@ public class CustomerTestBuilder
 
     public Customer CreateEntity()
     {
-        var entity = new Customer(firstname, lastname,dateOfBirth, phoneNumber,email, bankAccountNumber);
+        var entity = new Customer(firstname, lastname, dateOfBirth, phoneNumber, email, bankAccountNumber);
         return entity;
     }
-    
+
 }

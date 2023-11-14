@@ -29,8 +29,8 @@ public class CustomerResponse
             Id = customer.Id,
             FirstName = customer.FirstName,
             LastName = customer.LastName,
-            DateOfBirth = customer.DateOfBirth,
-            Email = customer.Email,
+            DateOfBirth = customer.GetDateOfBirth(),
+            Email = new MailAddress(customer.Email),
             PhoneNumber = customer.Phone.Phone.ToString()
         };
     }
