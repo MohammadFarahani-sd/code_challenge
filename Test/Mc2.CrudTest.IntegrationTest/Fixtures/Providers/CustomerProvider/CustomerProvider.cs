@@ -20,7 +20,7 @@ public static class CustomerProvider
         return builder;
     }
 
-    public static UpdateCustomerRequestTestBuilder UpdateCustomerTestBuilder(string firstName, string lastname, string email, string phoneNumber, string bankAccount, DateOnly dateOfBirth)
+    public static UpdateCustomerRequestTestBuilder UpdateCustomerTestBuilder(string firstName, string lastname, MailAddress email, string phoneNumber, string bankAccount, DateOnly dateOfBirth)
     {
         var builder = new UpdateCustomerRequestTestBuilder()
             .With(x => x.Firstname, firstName)
@@ -37,7 +37,7 @@ public static class CustomerProvider
         return ProvideSomeCustomerTestBuilder().Build();
     }
 
-    public static UpdateCustomerRequest UpdateSomeCustomer(string firstName, string lastname, string email, string phoneNumber, string bankAccount, DateOnly dateOfBirth)
+    public static UpdateCustomerRequest UpdateSomeCustomer(string firstName, string lastname, MailAddress email, string phoneNumber, string bankAccount, DateOnly dateOfBirth)
     {
         return UpdateCustomerTestBuilder(firstName, lastname, email, phoneNumber, bankAccount, dateOfBirth).Build();
     }
