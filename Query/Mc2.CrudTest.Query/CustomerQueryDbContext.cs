@@ -32,10 +32,9 @@ public class CustomerQueryDbContext : DbContext
                 {
                     b.ToTable("PhoneNumber");
                     b.Property<Guid>("CustomerId");
-                    b.Property(c => c.Phone)
-                        .IsRequired();
+                    b.Property(c => c.Phone).IsRequired();
                 });
-            customer.Navigation(e => e.Phone).IsRequired();
+            //customer.Navigation(e => e.Phone).IsRequired();
         });
 
     }

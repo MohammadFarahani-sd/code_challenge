@@ -17,7 +17,7 @@ public class Customer : Entity, IAggregateRoot
     [Column("DateOfBirth", TypeName = "date")]
     public DateOnly DateOfBirth { get; private set; }
 
-    public PhoneNumber Phone { get; private set; } = null!;
+    public PhoneNumber Phone { get;  set; } = null!;
 
 
     [EmailAddress]
