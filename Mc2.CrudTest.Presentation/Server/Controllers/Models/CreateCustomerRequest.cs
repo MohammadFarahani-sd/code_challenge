@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Net.Mail;
 
 namespace Mc2.CrudTest.Presentation.Server.Controllers.Models
 {
@@ -18,7 +19,13 @@ namespace Mc2.CrudTest.Presentation.Server.Controllers.Models
         [Required]
         [EmailAddress]
         [MaxLength(128)]
-        public string Email { get; set; } = null!;
+        public MailAddress Email { get; set; } = null!;
+
+
+        [Required]
+        [EmailAddress]
+        [MaxLength(128)]
+        public string PhoneNumber { get; set; } = null!;
 
         public DateOnly DateOfBirth { get; set; }
         

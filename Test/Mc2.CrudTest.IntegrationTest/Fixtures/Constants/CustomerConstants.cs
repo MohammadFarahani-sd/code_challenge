@@ -8,6 +8,8 @@ public static class CustomerConstants
     public const string Firstname = "SampleFirstname";
     
     public const string Lastname = "SampleLastname";
+
+    public const string PhoneNumber = "00441234567";
     
     public static readonly MailAddress Email =new MailAddress("mohammad@codechalleng.com");
 
