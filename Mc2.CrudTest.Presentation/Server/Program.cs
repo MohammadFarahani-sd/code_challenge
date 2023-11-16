@@ -34,7 +34,6 @@ namespace Mc2.CrudTest.Presentation.Server
                 options.UseSqlServer(builder.Configuration.GetValue<string>("ConnectionStrings:DefaultConnection"));
             });
 
-
             builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
 
             builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(CreateCustomerCommandHandler).Assembly));
