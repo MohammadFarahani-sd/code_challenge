@@ -17,7 +17,6 @@ public class CustomerTestBuilder
 
     private string? bankAccountNumber;
 
-
     public CustomerTestBuilder()
     {
         var currentId = Guid.NewGuid();
