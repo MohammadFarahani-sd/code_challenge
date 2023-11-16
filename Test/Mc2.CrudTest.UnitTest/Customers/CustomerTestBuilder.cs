@@ -28,7 +28,6 @@ public class CustomerTestBuilder
         email = new MailAddress($"{Guid.NewGuid()}@example.com");
         bankAccountNumber = "123456789";
         WithId(currentId);
-
     }
 
     public Guid Id { get; set; }
