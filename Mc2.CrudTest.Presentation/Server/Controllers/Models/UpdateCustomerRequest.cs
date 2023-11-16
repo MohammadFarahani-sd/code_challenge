@@ -16,9 +16,7 @@ public class UpdateCustomerRequest
     public string Lastname { get; set; } = null!;
 
     [Required]
-    [MinLength(3)]
-    [MaxLength(128)]
-    public string PhoneNumber { get; set; } = null!;
+    public ulong PhoneNumber { get; set; }
 
     [Required]
     [EmailAddress]

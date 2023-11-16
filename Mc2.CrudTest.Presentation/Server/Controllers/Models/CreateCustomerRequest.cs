@@ -23,9 +23,8 @@ namespace Mc2.CrudTest.Presentation.Server.Controllers.Models
 
 
         [Required]
-        [EmailAddress]
-        [MaxLength(128)]
-        public string PhoneNumber { get; set; } = null!;
+        [MaxLength(13)]
+        public ulong PhoneNumber { get; set; }
 
         public DateOnly DateOfBirth { get; set; }
         

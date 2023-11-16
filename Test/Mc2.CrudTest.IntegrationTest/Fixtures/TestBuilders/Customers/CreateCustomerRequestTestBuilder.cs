@@ -12,7 +12,7 @@ public class CreateCustomerRequestTestBuilder : ReflectionBuilder<CreateCustomer
     public Guid Id { get; set; } = CustomerConstants.Id;
     public string Firstname { get; set; } = CustomerConstants.Firstname;
     public string Lastname { get; set; } = CustomerConstants.Lastname;
-    public string PhoneNumber { get; set; } = CustomerConstants.PhoneNumber;
+    public ulong PhoneNumber { get; set; } = CustomerConstants.PhoneNumber;
     public DateOnly DateOfBirth { get; set; } = CustomerConstants.DateOfBirth;
     public MailAddress Email { get; set; } = CustomerConstants.Email;
     public string? BankAccountNumber { get; set; } = CustomerConstants.BackAccountNumber;

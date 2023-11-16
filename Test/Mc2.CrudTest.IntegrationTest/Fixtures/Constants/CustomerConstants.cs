@@ -9,7 +9,7 @@ public static class CustomerConstants
     
     public const string Lastname = "SampleLastname";
 
-    public const string PhoneNumber = "00441234567";
+    public const ulong PhoneNumber =00441234567;
     
     public static readonly MailAddress Email =new MailAddress("mohammad@codechalleng.com");
 
