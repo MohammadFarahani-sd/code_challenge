@@ -13,7 +13,7 @@ public static class CustomerConstants
     
     public static readonly MailAddress Email =new MailAddress("mohammad@codechalleng.com");
 
-    public static DateOnly DateOfBirth = DateOnly.FromDateTime(DateTime.Today);
+    public static DateTime DateOfBirth =  DateTime.Today;
 
     public const string BackAccountNumber = "123456789";
 

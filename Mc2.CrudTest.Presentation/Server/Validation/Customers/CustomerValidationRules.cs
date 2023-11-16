@@ -12,5 +12,12 @@ namespace Mc2.CrudTest.Presentation.Server.Validation.Customers
 
             return  validation.Validate(request);
         }
+
+        public static ValidationResult UpdateValidation(UpdateCustomerRequest request)
+        {
+            var validation = new UpdateCustomerValidator();
+
+            return validation.Validate(request);
+        }
     }
 }

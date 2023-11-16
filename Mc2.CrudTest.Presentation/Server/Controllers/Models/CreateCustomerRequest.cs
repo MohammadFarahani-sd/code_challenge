@@ -19,14 +19,14 @@ namespace Mc2.CrudTest.Presentation.Server.Controllers.Models
         [Required]
         [EmailAddress]
         [MaxLength(128)]
-        public MailAddress Email { get; set; } = null!;
+        public string Email { get; set; } = null!;
 
 
-        [Required]
-        [MaxLength(13)]
-        public ulong PhoneNumber { get; set; }
+        [Required] 
+        [MaxLength(15)] 
+        public string PhoneNumber { get; set; } = null!;
 
-        public DateOnly DateOfBirth { get; set; }
+        public DateTime DateOfBirth { get; set; }
         
         public string? BankAccountNumber { get; set; }
     }

@@ -6,7 +6,7 @@ namespace Mc2.CrudTest.Application.Contract.Customers.Command;
 [Serializable]
 public class CreateCustomerCommand : IRequest<Guid>
 {
-    public CreateCustomerCommand( string firstname, string lastname, DateOnly dateOfBirth, ulong phoneNumber, MailAddress email, string? bankAccountNumber)
+    public CreateCustomerCommand( string firstname, string lastname, DateTime dateOfBirth, ulong phoneNumber, MailAddress email, string? bankAccountNumber)
     {
         Firstname = firstname;
         Lastname = lastname;
@@ -18,7 +18,7 @@ public class CreateCustomerCommand : IRequest<Guid>
 
     public string Firstname { get; set; }
     public string Lastname { get; set; }
-    public DateOnly DateOfBirth { get; set; }
+    public DateTime DateOfBirth { get; set; }
     public ulong PhoneNumber { get; set; }
     public MailAddress Email { get; set; }
     public string? BankAccountNumber { get; set; }

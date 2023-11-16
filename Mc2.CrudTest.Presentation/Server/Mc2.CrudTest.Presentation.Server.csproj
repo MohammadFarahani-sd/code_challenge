@@ -35,6 +35,7 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\..\Application\Mc2.CrudTest.Application\Mc2.CrudTest.Application.csproj" />
+		<ProjectReference Include="..\..\Common\Common\Common.csproj" />
 		<ProjectReference Include="..\..\Infrastructure\Mc2.CrudTest.Infrastructure.csproj" />
 		<ProjectReference Include="..\..\Query\Mc2.CrudTest.Query\Mc2.CrudTest.Query.csproj" />
 	</ItemGroup>

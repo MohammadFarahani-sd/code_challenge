@@ -13,7 +13,7 @@ public class CreateCustomerRequestTestBuilder : ReflectionBuilder<CreateCustomer
     public string Firstname { get; set; } = CustomerConstants.Firstname;
     public string Lastname { get; set; } = CustomerConstants.Lastname;
     public ulong PhoneNumber { get; set; } = CustomerConstants.PhoneNumber;
-    public DateOnly DateOfBirth { get; set; } = CustomerConstants.DateOfBirth;
+    public DateTime DateOfBirth { get; set; } = CustomerConstants.DateOfBirth;
     public MailAddress Email { get; set; } = CustomerConstants.Email;
     public string? BankAccountNumber { get; set; } = CustomerConstants.BackAccountNumber;
     public CreateCustomerRequestTestBuilder()
@@ -27,10 +27,10 @@ public class CreateCustomerRequestTestBuilder : ReflectionBuilder<CreateCustomer
         {
             BankAccountNumber = BankAccountNumber,
             DateOfBirth = DateOfBirth,
-            Email = Email,
+            Email = Email.ToString(),
             Firstname = Firstname,
             Lastname = Lastname,
-            PhoneNumber = PhoneNumber
+            PhoneNumber = PhoneNumber.ToString(),
         };
 
         return customer;

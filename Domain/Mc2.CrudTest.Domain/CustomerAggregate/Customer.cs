@@ -15,9 +15,9 @@ public class Customer : Entity, IAggregateRoot
     public string LastName { get; private set; }
 
     [Column("DateOfBirth", TypeName = "date")]
-    public DateOnly DateOfBirth { get; private set; }
+    public DateTime DateOfBirth { get; private set; }
 
-    public PhoneNumber Phone { get;  set; } = null!;
+    public PhoneNumber Phone { get; set; } = null!;
 
 
     [EmailAddress]
@@ -51,7 +51,7 @@ public class Customer : Entity, IAggregateRoot
         Id = Guid.NewGuid();
         this.FirstName = firstname;
         this.LastName = lastname;
-        this.DateOfBirth = dateOfBirth;
+        this.DateOfBirth = dateOfBirth.ToDateTime(TimeOnly.MinValue);
         this.Phone = new PhoneNumber(phoneNumber);
         this.Email = email.ToString();
         this.BankAccountNumber = bankAccountNumber;
@@ -61,9 +61,9 @@ public class Customer : Entity, IAggregateRoot
 
     public string GetLastName() => LastName;
 
-    public MailAddress GetEmail() =>new MailAddress(Email);
+    public MailAddress GetEmail() => new MailAddress(Email);
 
-    public DateOnly GetDateOfBirth() => DateOfBirth;
+    public DateOnly GetDateOfBirth() => DateOnly.FromDateTime(DateOfBirth);
 
     public PhoneNumber GetPhoneNumber() => Phone;
 
@@ -83,7 +83,7 @@ public class Customer : Entity, IAggregateRoot
             throw new DomainException("invalid email");
         this.FirstName = firstname;
         this.LastName = lastname;
-        this.DateOfBirth = dateOfBirth;
+        this.DateOfBirth = dateOfBirth.ToDateTime(TimeOnly.MinValue);
         this.Email = email.ToString();
         this.BankAccountNumber = bankAccountNumber;
 

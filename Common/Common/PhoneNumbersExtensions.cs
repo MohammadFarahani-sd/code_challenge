@@ -14,7 +14,7 @@ namespace Common.Helpers
         /// </summary>
         /// <param name="phoneNumber"></param>
         /// <returns></returns>
-        public static bool TryToGetFromPhoneNumber(ref string phoneNumber)
+        public static string TryToGetFromPhoneNumber(string phoneNumber)
         {
             var phoneNumberUtil = PhoneNumbers.PhoneNumberUtil.GetInstance();
             var phoneNumberFinder = phoneNumberUtil.FindNumbers(phoneNumber, null);
@@ -22,9 +22,11 @@ namespace Common.Helpers
             {
                 phoneNumber =
                     $"{phoneNumberFinder.FirstOrDefault().Number.CountryCode}{phoneNumberFinder.FirstOrDefault().Number.NationalNumber}";
+
+                return phoneNumber;
             }
 
-            return true;
+            throw new ArgumentException("invalid phone number");
         }
 
         /// <summary>

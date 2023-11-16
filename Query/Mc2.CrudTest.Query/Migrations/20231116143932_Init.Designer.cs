@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Mc2.CrudTest.Query.Migrations
 {
     [DbContext(typeof(CustomerQueryDbContext))]
-    [Migration("20231115062438_Init")]
+    [Migration("20231116143932_Init")]
     partial class Init
     {
         /// <inheritdoc />

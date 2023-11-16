@@ -22,7 +22,7 @@ public class CustomerTestForUpdatingModel : BaseIntegrationTest
         var responseOfCreate = await createCustomer.Content.ReadFromJsonAsync<Response<Guid>>();
 
         var updateCustomer = CustomerProvider.UpdateSomeCustomer("Mohammad", "farahani", new MailAddress("mfarahan8575@gmail.com"),
-            004412345678, "1234567890123456789", DateOnly.FromDateTime(DateTime.Today.AddYears(-36)));
+            004412345678, "1234567890123456789", DateTime.Today.AddYears(-36));
 
         var updateCustomerResponse = await ClientRequest.PostAsJsonAsync(RouteConstantProvider.UpdateCustomer(responseOfCreate.Data), updateCustomer);
 
@@ -41,7 +41,7 @@ public class CustomerTestForUpdatingModel : BaseIntegrationTest
         var responseOfCreate = await createCustomer.Content.ReadFromJsonAsync<Response<Guid>>();
 
         var updateCustomer = CustomerProvider.UpdateSomeCustomer("", "farahani", new MailAddress("mfarahan8575@gmail.com"), 004412345678,
-            "1234567890123456789", DateOnly.FromDateTime(DateTime.Today.AddYears(-36)));
+            "1234567890123456789", DateTime.Today.AddYears(-36));
 
         var updateCustomerResponse = await ClientRequest.PostAsJsonAsync(RouteConstantProvider.UpdateCustomer(responseOfCreate.Data), updateCustomer);
 

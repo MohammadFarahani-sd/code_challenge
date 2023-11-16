@@ -16,19 +16,19 @@ public class CreateCustomerCommandHandler : IRequestHandler<CreateCustomerComman
 
     public async Task<Guid> Handle(CreateCustomerCommand request, CancellationToken cancellationToken)
     {
-        var isDuplicatedEmail=
+        var isDuplicatedEmail =
             await _repository.IsUniqueEmail(request.Email);
-        
+
         if (!isDuplicatedEmail)
             throw new DomainException("customer with this email is exist");
 
         var isDuplicatedData =
-            await _repository.IsUniqueValidationPassed(request.Firstname, request.Lastname, request.DateOfBirth);
+            await _repository.IsUniqueValidationPassed(request.Firstname, request.Lastname, DateOnly.FromDateTime(request.DateOfBirth));
 
         if (!isDuplicatedData)
             throw new DomainException("customer with this data is duplicated");
 
-        var entity = new Customer(request.Firstname, request.Lastname, request.DateOfBirth, request.PhoneNumber,
+        var entity = new Customer(request.Firstname, request.Lastname, DateOnly.FromDateTime(request.DateOfBirth), request.PhoneNumber,
             request.Email, request.BankAccountNumber);
 
         _repository.Add(entity);

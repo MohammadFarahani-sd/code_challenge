@@ -23,7 +23,7 @@ public class UpdateCustomerCommandHandler : IRequestHandler<UpdateCustomerComman
             throw new DomainException("customer with this email is exist");
 
         var isDuplicatedData =
-            await _repository.IsUniqueValidationPassed(request.Id, request.Firstname, request.Lastname, request.DateOfBirth);
+            await _repository.IsUniqueValidationPassed(request.Id, request.Firstname, request.Lastname, DateOnly.FromDateTime(request.DateOfBirth));
 
         if (!isDuplicatedData)
             throw new DomainException("customer with this data is duplicated");
@@ -33,7 +33,7 @@ public class UpdateCustomerCommandHandler : IRequestHandler<UpdateCustomerComman
         if (customer == null)
             throw new DomainException("item not found");
 
-        customer.Update(request.Firstname, request.Lastname, request.DateOfBirth, request.PhoneNumber, request.Email, request.BankAccountNumber);
+        customer.Update(request.Firstname, request.Lastname, DateOnly.FromDateTime(request.DateOfBirth), request.PhoneNumber, request.Email, request.BankAccountNumber);
 
         await _repository.UnitOfWork.SaveEntitiesAsync(cancellationToken);
 
