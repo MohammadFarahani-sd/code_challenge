@@ -1,0 +1,30 @@
+version: '3.7'
+
+services:
+
+    customer:
+        container_name: customer
+        restart: on-failure
+        environment:
+            - ASPNETCORE_ENVIRONMENT=Productioin
+        volumes:
+            - ${HOME}/.microsoft/usersecrets/:/root/.microsoft/usersecrets
+        ports:
+            - "63:80"
+
+    sqldb:
+        image: mcr.microsoft.com/mssql/server:2022-latest
+        environment:
+        - SA_PASSWORD=09128986248M@m
+        - ACCEPT_EULA=Y
+        ports:
+        - "1433:1433"
+        restart: always
+        container_name: sqldb
+        volumes:
+            - ./storage/sqldb1/data:/data
+            
+networks: 
+     default: 
+       external: true
+       name: appliance 
