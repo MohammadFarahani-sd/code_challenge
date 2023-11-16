@@ -11,7 +11,8 @@ public class UpdateCustomerRequestTestBuilder : ReflectionBuilder<UpdateCustomer
 
     public string Firstname { get; set; } = CustomerConstants.Firstname;
     public string Lastname { get; set; } = CustomerConstants.Lastname;
-    public DateOnly DateOfBirth { get; set; } = CustomerConstants.DateOfBirth;
+    public ulong PhoneNumber { get; set; } = CustomerConstants.PhoneNumber;
+    public DateTime DateOfBirth { get; set; } = CustomerConstants.DateOfBirth;
     public MailAddress Email { get; set; } = CustomerConstants.Email;
     public string? BankAccountNumber { get; set; } = CustomerConstants.BackAccountNumber;
     public UpdateCustomerRequestTestBuilder()
@@ -28,6 +29,7 @@ public class UpdateCustomerRequestTestBuilder : ReflectionBuilder<UpdateCustomer
             Email = Email.ToString(),
             Firstname = Firstname,
             Lastname = Lastname,
+            PhoneNumber = PhoneNumber.ToString()
         };
 
         return customer;

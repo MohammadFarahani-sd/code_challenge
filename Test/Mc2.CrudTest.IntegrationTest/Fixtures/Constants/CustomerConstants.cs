@@ -8,10 +8,12 @@ public static class CustomerConstants
     public const string Firstname = "SampleFirstname";
     
     public const string Lastname = "SampleLastname";
+
+    public const ulong PhoneNumber =00441234567;
     
     public static readonly MailAddress Email =new MailAddress("mohammad@codechalleng.com");
 
-    public static DateOnly DateOfBirth = DateOnly.FromDateTime(DateTime.Today);
+    public static DateTime DateOfBirth =  DateTime.Today;
 
     public const string BackAccountNumber = "123456789";
 

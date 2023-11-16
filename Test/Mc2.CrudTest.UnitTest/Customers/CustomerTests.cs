@@ -1,4 +1,5 @@
-﻿using Mc2.CrudTest.Domain.CustomerAggregate;
+﻿using System.Net.Mail;
+using Mc2.CrudTest.Domain.CustomerAggregate;
 using Mc2.CrudTest.Domain.Exceptions;
 using Xunit;
 
@@ -49,7 +50,7 @@ public class CustomerTests
     {
         //Arrange
         var builder = new CustomerTestBuilder();
-        var email = "mfarahan8575@gmail.com";
+        var email = new MailAddress("mfarahan8575@gmail.com");
         builder.WithEmail(email);
 
 
@@ -58,8 +59,8 @@ public class CustomerTests
 
         // Assert
         Assert.NotEmpty(Action().GetEmail().ToString());
-        Assert.Equal(email, Action().GetEmail().ToString());
-        Assert.NotEqual(email, Action().GetFirstName());
+        Assert.Equal(email.ToString(), Action().GetEmail().ToString());
+        Assert.NotEqual(email.ToString(), Action().GetFirstName());
     }
 
     [Fact]
@@ -79,27 +80,5 @@ public class CustomerTests
 
     }
 
-
-    [Fact]
-    public void not_valid_email_must_be_exception()
-    {
-        //Arrange
-        var builder = new CustomerTestBuilder();
-        var email = "not valid email";
-        builder.WithEmail(email);
-
-
-        //Act
-        Customer Action()
-        {
-            return builder.CreateEntity();
-        }
-
-        DomainException ex = Assert.Throws<DomainException>((Func<Customer>)Action);
-
-        //Assert            
-        Assert.NotNull(ex);
-        Assert.IsType<DomainException>(ex);
-    }
-
+    
 }

@@ -46,11 +46,13 @@ namespace Mc2.CrudTest.Infrastructure.EntityConfigurations.Customers
                 .Property(c => c.Email)
                 .HasMaxLength(128)
                 .UsePropertyAccessMode(PropertyAccessMode.Field)
+                .HasColumnType("varchar(100)")
+
                 .IsRequired();
 
             configuration
                 .Property(c => c.DateOfBirth)
-                .UsePropertyAccessMode(PropertyAccessMode.Field)
+                .HasColumnType("date")
                 .IsRequired();
 
             configuration

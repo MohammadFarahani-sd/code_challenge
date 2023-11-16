@@ -8,16 +8,15 @@ public class CustomerEntityTypeConfiguration : EntityTypeConfiguration<Customer>
 {
     public override void ConfigureDerived(EntityTypeBuilder<Customer> configuration)
     {
-        configuration.ToTable("Customers", "Mc2CodeChallenge");
+        configuration.ToTable("Customer", "Mc2CodeChallenge");
 
         configuration.Property(o => o.Id).HasColumnName("Id");
 
         configuration.HasKey(o => o.Id);
 
-        configuration.HasKey(o => new { o.DateOfBirth, o.FirstName, o.LastName });
+        configuration.HasIndex(o => new { o.DateOfBirth, o.FirstName, o.LastName });
 
         configuration.HasIndex(p => p.Email).IsUnique();
-
 
         configuration
             .OwnsOne(o => o.Phone, a =>

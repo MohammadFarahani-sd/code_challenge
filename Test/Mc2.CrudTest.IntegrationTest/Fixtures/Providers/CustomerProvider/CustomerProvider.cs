@@ -13,19 +13,21 @@ public static class CustomerProvider
             .With(x => x.Firstname, CustomerConstants.Firstname)
             .With(x => x.Lastname, CustomerConstants.Lastname)
             .With(x => x.Email, CustomerConstants.Email.ToString())
+            .With(x => x.PhoneNumber, CustomerConstants.PhoneNumber.ToString())
             .With(x => x.DateOfBirth, CustomerConstants.DateOfBirth)
             .With(x => x.BankAccountNumber, CustomerConstants.BackAccountNumber);
 
         return builder;
     }
 
-    public static UpdateCustomerRequestTestBuilder UpdateCustomerTestBuilder(string firstName, string lastname, string email, string bankAccount, DateOnly dateOfBirth)
+    public static UpdateCustomerRequestTestBuilder UpdateCustomerTestBuilder(string firstName, string lastname, MailAddress email, ulong phoneNumber, string bankAccount, DateTime dateOfBirth)
     {
         var builder = new UpdateCustomerRequestTestBuilder()
             .With(x => x.Firstname, firstName)
             .With(x => x.Lastname, lastname)
-            .With(x => x.Email, email)
+            .With(x => x.Email, email.ToString())
             .With(x => x.DateOfBirth, dateOfBirth)
+            .With(x => x.PhoneNumber, phoneNumber.ToString())
             .With(x => x.BankAccountNumber, bankAccount);
 
         return builder;
@@ -35,8 +37,8 @@ public static class CustomerProvider
         return ProvideSomeCustomerTestBuilder().Build();
     }
 
-    public static UpdateCustomerRequest UpdateSomeCustomer(string firstName, string lastname, string email, string bankAccount, DateOnly dateOfBirth)
+    public static UpdateCustomerRequest UpdateSomeCustomer(string firstName, string lastname, MailAddress email, ulong phoneNumber, string bankAccount, DateTime dateOfBirth)
     {
-        return UpdateCustomerTestBuilder(firstName, lastname, email, bankAccount, dateOfBirth).Build();
+        return UpdateCustomerTestBuilder(firstName, lastname, email, phoneNumber, bankAccount, dateOfBirth).Build();
     }
 }
