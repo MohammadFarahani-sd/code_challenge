@@ -25,7 +25,7 @@ public class CustomerTestBuilder
         lastname = Guid.NewGuid().ToString();
         dateOfBirth = DateOnly.FromDateTime(DateTime.Today);
         phoneNumber = ulong.Parse("+989128986248");
-        email = new MailAddress($"{Guid.NewGuid().ToString()}@example.com");
+        email = new MailAddress($"{Guid.NewGuid()}@example.com");
         bankAccountNumber = "123456789";
         WithId(currentId);
 
