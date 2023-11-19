@@ -9,7 +9,7 @@ namespace Mc2.CrudTest.Infrastructure.EntityConfigurations.Customers
     {
         public override void ConfigureDerived(EntityTypeBuilder<Customer> configuration)
         {
-            configuration.ToTable("Customers", "Mc2CodeChallenge");
+            configuration.ToTable("Customer", "Mc2CodeChallenge");
 
             configuration.Property(o => o.Id).HasColumnName("Id");
 

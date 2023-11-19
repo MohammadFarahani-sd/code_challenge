@@ -1,4 +1,5 @@
-﻿using System.Net.Mail;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Net.Mail;
 using Mc2.CrudTest.Domain.CustomerAggregate;
 
 namespace Mc2.CrudTest.Query.Models.Customers.Response;
@@ -14,7 +15,8 @@ public class CustomerResponse
     public string LastName { get; set; } = null!;
 
     public DateOnly DateOfBirth { get; set; }
-
+    
+    [EmailAddress]
     public MailAddress Email { get; set; } = null!;
 
     public static CustomerResponse Build(Customer customer)

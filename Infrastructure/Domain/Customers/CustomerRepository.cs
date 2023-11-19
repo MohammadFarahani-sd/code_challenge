@@ -30,7 +30,7 @@ public class CustomerRepository : RepositoryBase<Customer>, ICustomerRepository
     public async Task<bool> IsUniqueValidationPassed(string firstname, string lastname, DateOnly dateOfBirth)
     {
         return await DbContext.Customers.AnyAsync(q =>
-            q.FirstName == firstname && q.LastName == lastname && q.GetDateOfBirth() == dateOfBirth);
+            q.FirstName == firstname && q.LastName == lastname && q.DateOfBirth.Date == dateOfBirth.ToDateTime(TimeOnly.MinValue));
     }
 
     public async Task<bool> IsUniqueEmail(MailAddress email)
@@ -48,6 +48,6 @@ public class CustomerRepository : RepositoryBase<Customer>, ICustomerRepository
     public async Task<bool> IsUniqueValidationPassed(Guid id, string firstname, string lastname, DateOnly dateOfBirth)
     {
         return await DbContext.Customers.AnyAsync(q => q.Id != id &&
-            q.FirstName == firstname && q.LastName == lastname && q.GetDateOfBirth() == dateOfBirth);
+            q.FirstName == firstname && q.LastName == lastname && q.DateOfBirth.Date == dateOfBirth.ToDateTime(TimeOnly.MinValue));
     }
 }

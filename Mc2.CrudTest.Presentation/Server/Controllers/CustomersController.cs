@@ -7,6 +7,9 @@ using Mc2.CrudTest.Presentation.Server.Validation.Customers;
 using Microsoft.AspNetCore.Mvc;
 
 using MediatR;
+using Mc2.CrudTest.Query.Queries.Customers;
+using Mc2.CrudTest.Query.Models.Customers.Response;
+using Mc2.CrudTest.Query.Filters;
 namespace Mc2.CrudTest.Presentation.Server.Controllers;
 
 [ApiController]
@@ -21,6 +24,25 @@ public class CustomersController : ControllerBase
     }
 
 
+    [HttpGet("{id}")]
+    [ProducesResponseType(typeof(Guid), StatusCodes.Status201Created)]
+    public async Task<ActionResult<CustomerResponse>> GetCustomerAsync([FromRoute] Guid id)
+    {
+        var customer = await _mediator.Send(new GetCustomerQuery(id));
+        return Ok(customer);
+
+    }
+
+
+    [HttpGet]
+    [ProducesResponseType(typeof(Guid), StatusCodes.Status201Created)]
+    public async Task<ActionResult<List<CustomerResponse>>> GetCustomersAsync([FromQuery] CustomerFilter request)
+    {
+        var customers = await _mediator.Send(new GetCustomersQuery(request));
+        return Ok(customers);
+
+    }
+
     [HttpPost]
     [ProducesResponseType(typeof(Guid), StatusCodes.Status201Created)]
     public async Task<ActionResult<Guid>> CreateAsync([FromBody] CreateCustomerRequest request)
@@ -28,7 +50,7 @@ public class CustomersController : ControllerBase
         try
         {
 
-            var phone = PhoneNumbersExtensions.TryToGetFromPhoneNumber(request.PhoneNumber.ToString());
+            var phone = PhoneNumbersExtensions.TryToGetFromPhoneNumber(request.PhoneNumber);
             var validateRider = CustomerValidationRules.CreateValidation(request);
 
             if (!validateRider.IsValid)
@@ -37,7 +59,7 @@ public class CustomersController : ControllerBase
                 throw new BadHttpRequestException(string.Join(",", currentRiderExceptions));
             }
 
-            var customerCreated =await _mediator.Send(new CreateCustomerCommand(request.Firstname, request.Lastname,
+            var customerCreated = await _mediator.Send(new CreateCustomerCommand(request.Firstname, request.Lastname,
                 request.DateOfBirth, ulong.Parse(phone), new MailAddress(request.Email), request.BankAccountNumber));
             return Created($"", customerCreated);
 
@@ -65,7 +87,7 @@ public class CustomersController : ControllerBase
                 throw new BadHttpRequestException(string.Join(",", currentRiderExceptions));
             }
 
-            var customerUpdated =await _mediator.Send(new UpdateCustomerCommand(id, request.Firstname, request.Lastname,
+            var customerUpdated = await _mediator.Send(new UpdateCustomerCommand(id, request.Firstname, request.Lastname,
                 request.DateOfBirth, ulong.Parse(phone), new MailAddress(request.Email), request.BankAccountNumber));
             return Ok(customerUpdated);
 
@@ -79,7 +101,7 @@ public class CustomersController : ControllerBase
 
 
 
-    [HttpPut("{id}")]
+    [HttpDelete("{id}")]
     [ProducesResponseType(typeof(Guid), StatusCodes.Status201Created)]
     public async Task<ActionResult<Guid>> DeleteAsync(Guid id)
     {

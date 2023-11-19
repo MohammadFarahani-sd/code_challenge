@@ -19,13 +19,13 @@ public class CreateCustomerCommandHandler : IRequestHandler<CreateCustomerComman
         var isDuplicatedEmail =
             await _repository.IsUniqueEmail(request.Email);
 
-        if (!isDuplicatedEmail)
+        if (isDuplicatedEmail)
             throw new DomainException("customer with this email is exist");
 
         var isDuplicatedData =
-            await _repository.IsUniqueValidationPassed(request.Firstname, request.Lastname, DateOnly.FromDateTime(request.DateOfBirth));
+            await _repository.IsUniqueValidationPassed(request.Firstname, request.Lastname,DateOnly.FromDateTime(request.DateOfBirth));
 
-        if (!isDuplicatedData)
+        if (isDuplicatedData)
             throw new DomainException("customer with this data is duplicated");
 
         var entity = new Customer(request.Firstname, request.Lastname, DateOnly.FromDateTime(request.DateOfBirth), request.PhoneNumber,
